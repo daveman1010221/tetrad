@@ -50,3 +50,4 @@ tetrad-lib/low*
 tetrad-lib/rejects_*
 tetrad-lib/testPermutedData.txt
 .DS_Store
+result

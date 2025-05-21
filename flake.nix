@@ -1,21 +1,17 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
+    tetrad-src.url = "github:daveman1010221/tetrad/development";
   };
 
-  outputs = { self, nixpkgs }: {
+  outputs = { self, nixpkgs, tetrad-src }: {
     packages.x86_64-linux.default = let
       # Import the Nixpkgs library for package definitions
       pkgs = import nixpkgs { system = "x86_64-linux"; };
 
       # Fetch a specific Nixpkgs commit for stability and compatibility
       # Ensures `buildMavenPackage` is available
-      nixpkgsRepo = pkgs.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "e0fa4d8cfec9f6aa7fc6650db2a46b7cd611d0c3"; # Example commit
-        sha256 = "sha256-Z99WW4F6ORVTzLlo5DGtghns5pkIjvDZ1qzwXAWymJw=";
-      };
+      nixpkgsRepo = nixpkgs;
 
       # Explicitly load the `buildMavenPackage` function from the specified Nixpkgs repo
       # This is critical for building Maven projects in a Nix environment
@@ -23,12 +19,7 @@
 
       # Fetch the Tetrad source code
       # This source will be used in both the dependency fetch and main build derivations
-      tetradSource = pkgs.fetchFromGitHub {
-        owner = "cmu-phil";
-        repo = "tetrad";
-        rev = "8523ca61e58bfc77fd71b9bc7b4c882281264c4c";
-        sha256 = "sha256-ax39zgZDIQR9aQKI1cDx4t5juAs5LwKssHzLokThpEo=";
-      };
+      tetradSource = tetrad-src;
 
       # Create a derivation to handle Maven dependency resolution
       # This step ensures that all dependencies are resolved offline and reproducibly
@@ -74,7 +65,7 @@
       # This step compiles the source code and packages the output .jar file
       customTetrad = buildMavenPackage {
         pname = "tetrad";
-        version = "7.6.7-SNAPSHOT";
+        version = builtins.substring 0 8 (tetrad-src.rev or "unknown");
 
         # Use the same source as the dependency fetch phase
         src = tetradSource;
@@ -93,12 +84,12 @@
         # Specify where to copy the compiled output
         installPhase = ''
           mkdir -p $out/share/java
-          cp tetrad-gui/target/tetrad-gui-7.6.7-SNAPSHOT-launch.jar $out/share/java/
+          cp tetrad-gui/target/tetrad-gui-*-launch.jar $out/share/java/
         '';
 
         # Specify the fixed-output hash for the Maven dependency resolution step
         # This ensures reproducibility by verifying the content hash
-        mvnHash = "sha256-gUCI58+5JXX5NpmE1QI50SvaQnFVMf0kGbVVBZzPbk4=";
+        mvnHash = "sha256-Nfv6jhnIZ+sWDsuQXqoaziIG5n2YSqyYUcrHPDuFpHM=";
       };
 
     # Return the final build derivation as the default package

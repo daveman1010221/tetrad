@@ -2,26 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1747838644,
-        "narHash": "sha256-f3tbL8ZSCD1IKen9Tp98JWAcCjfnOE5qVr0Wh9a7ekU=",
+        "lastModified": 1761311083,
+        "narHash": "sha256-VjYOVSeXoQOlnEp3nPUsOEIuYgGyz8DqI02Go1zPhqE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5159765a7ca34a886eab3c6ead0734543eb22d01",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1747837371,
-        "narHash": "sha256-QqRSsqoRAANoTW1NhL0SzXC5BGBpBi5hhhf+Zf18yZU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "5eb89a48293bd4a12f80a43898d2600505971bd6",
+        "rev": "994e3e2300d291d778fe6ddd03366619a4c4dbd8",
         "type": "github"
       },
       "original": {
@@ -32,27 +17,7 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
-        "tetrad-src": "tetrad-src"
-      }
-    },
-    "tetrad-src": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1747838100,
-        "narHash": "sha256-HcfJIuKujtmFfYbgdVStzj6XSueUQNAq8YOLXIy2ki4=",
-        "owner": "daveman1010221",
-        "repo": "tetrad",
-        "rev": "cf0bfbb73a6a83c6da251cca65cb912e1f72a7b0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "daveman1010221",
-        "ref": "development",
-        "repo": "tetrad",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

@@ -51,3 +51,6 @@ tetrad-lib/rejects_*
 tetrad-lib/testPermutedData.txt
 .DS_Store
 result
+
+# Maven shade output
+**/dependency-reduced-pom.xml

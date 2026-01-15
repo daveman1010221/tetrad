@@ -15,21 +15,24 @@
 
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
-        outputHash = "sha256-lyma+lAx+LzAASIWfanHbrua+Qo3SPRTrwaA7zep2sI=";
+        outputHash = "sha256-foa+oshSYPOZmNiT3xR6HABgJDVCUJIU0qiin2GDPJI=";
 
-        nativeBuildInputs = [ pkgs.xmlstarlet pkgs.xmllint pkgs.maven pkgs.jdk23 ];
+        nativeBuildInputs = [ pkgs.xmlstarlet pkgs.xmllint pkgs.maven pkgs.jdk25 ];
 
-        patchPhase = ''
-          echo "Patching pom.xml to disable Javadoc plugin and Sonatype references"
-          xmlstarlet ed -L -d "//plugin[artifactId='maven-javadoc-plugin']" pom.xml
-          xmllint --noout pom.xml
-        '';
+	patchPhase = ''
+	  echo "Patching pom.xml to disable Javadoc plugin and Sonatype Central publishing plugin"
+	  xmlstarlet ed -L \
+	    -d "/project/build/plugins/plugin[groupId='org.apache.maven.plugins' and artifactId='maven-javadoc-plugin']" \
+	    -d "/project/build/plugins/plugin[groupId='org.sonatype.central' and artifactId='central-publishing-maven-plugin']" \
+	    pom.xml
+	  xmllint --noout pom.xml
+	'';
 
         buildPhase = ''
           echo "Fetching Maven dependencies offline"
-          export JAVA_HOME=${pkgs.jdk23}
+          export JAVA_HOME=${pkgs.jdk25}
           export PATH=$JAVA_HOME/bin:$PATH
-          mvn dependency:resolve -Dmaven.repo.local=$out/.m2
+	  mvn dependency:resolve -Dmaven.repo.local=$out/.m2 -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip=true
         '';
 
         installPhase = ''
@@ -42,7 +45,7 @@
         version = self.shortRev or "dirty";
         src = self;
         fetchedMavenDeps = customFetchedMavenDeps;
-        mvnParameters = "-Dmaven.javadoc.skip=true -DskipTests";
+	mvnParameters = "-DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip=true";
         doCheck = false;
 
         installPhase = ''
@@ -50,7 +53,7 @@
           cp tetrad-gui/target/tetrad-gui-*-launch.jar $out/share/java/
         '';
 
-        mvnHash = "sha256-lyma+lAx+LzAASIWfanHbrua+Qo3SPRTrwaA7zep2sI=";
+        mvnHash = "sha256-foa+oshSYPOZmNiT3xR6HABgJDVCUJIU0qiin2GDPJI=";
       };
 
     in

@@ -54,3 +54,5 @@ result
 
 # Maven shade output
 **/dependency-reduced-pom.xml
+result-*
+*.versionsBackup

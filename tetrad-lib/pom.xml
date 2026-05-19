@@ -109,7 +109,7 @@
         <dependency>
             <groupId>xom</groupId>
             <artifactId>xom</artifactId>
-            <version>1.4.2</version>
+            <version>1.4.4</version>
         </dependency>
         <dependency>
             <groupId>javax.help</groupId>
@@ -148,17 +148,17 @@
         <dependency>
             <groupId>org.ejml</groupId>
             <artifactId>ejml-ddense</artifactId>
-            <version>0.44.0</version>
+            <version>0.45.0</version>
         </dependency>
         <dependency>
             <groupId>org.ejml</groupId>
             <artifactId>ejml-core</artifactId>
-            <version>0.44.0</version>
+            <version>0.45.0</version>
         </dependency>
         <dependency>
             <groupId>org.ejml</groupId>
             <artifactId>ejml-all</artifactId>
-            <version>0.44.0</version>
+            <version>0.45.0</version>
         </dependency>
         <!--        <dependency>-->
         <!--            <groupId>org.pytorch</groupId>-->

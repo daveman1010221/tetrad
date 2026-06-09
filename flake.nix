@@ -31,7 +31,7 @@
             mkdir -p $out/share/java
             cp tetrad-gui/target/tetrad-gui-*-launch.jar $out/share/java/
           '';
-          mvnHash = "sha256-upU7EKCg9aiiUAT0m97Zod7yNklNniY5UtSxaP+EDss=";
+          mvnHash = "sha256-4uzmh8A1F1XU4bH23CAtWSwUchBx7itSQXzOD2jJ3D4=";
         };
 
   in {
